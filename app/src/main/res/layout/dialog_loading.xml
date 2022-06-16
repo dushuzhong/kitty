@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_body"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#000000"
+    android:padding="10dp">
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_ing"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_loading" />
+        <TextView
+            android:id="@+id/iv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="正在加载中..."
+            android:layout_below="@+id/iv_ing"
+            android:layout_marginTop="20dp"
+            />
+    </RelativeLayout>
+</LinearLayout>
