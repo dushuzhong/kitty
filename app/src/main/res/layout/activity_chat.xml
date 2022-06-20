@@ -7,7 +7,7 @@
     tools:context=".ChatActivity">
 
     <!-- 原生下拉刷新组件 -->
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.core.widget.SwipeRefreshLayout
         android:id="@+id/main_srl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -15,5 +15,5 @@
             android:id="@+id/list_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-    </android.support.v4.widget.SwipeRefreshLayout>
+    </androidx.core.widget.SwipeRefreshLayout>
 </RelativeLayout>

@@ -5,6 +5,6 @@ package com.asia.kitty.Interface;
 
 // 定义接口
 public interface FragmentCallback {
-    // 定义一个火球信息的方法
+    // 定义一个获取信息的方法
     public void getResult(String result);
 }

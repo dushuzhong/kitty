@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: ./jiguang/libs/HiPushSdk-v6.0.4.101-release.aar">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c5b330a102e2e0b51233d7edab7b0632/HiPushSdk-v6.0.4.101-release/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c5b330a102e2e0b51233d7edab7b0632/HiPushSdk-v6.0.4.101-release/res" />
+      <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/c5b330a102e2e0b51233d7edab7b0632/HiPushSdk-v6.0.4.101-release/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

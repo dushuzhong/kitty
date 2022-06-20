@@ -2,8 +2,10 @@ package com.asia.kitty.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import com.asia.kitty.R;
 import com.asia.kitty.components.HomeNavigationBar;
 
 // 定义一个MyFragment
+// getActivity 获取获取Fragment所在activity
 @SuppressLint("ValidFragment")
 public class HomeFragment extends Fragment {
 
@@ -30,9 +33,14 @@ public class HomeFragment extends Fragment {
         //txt_content.setText(content);
         navigationBar = (HomeNavigationBar) view.findViewById(R.id.home_navigationBar);
         navigationBar.setTitle("首页");
-
         return view;
         //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.i("HomeFragment","用户离开时调用");
+
+    }
 }

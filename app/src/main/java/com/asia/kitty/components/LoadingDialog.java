@@ -5,8 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
+//import android.support.annotation.NonNull;
+//import android.support.annotation.StyleRes;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationSet;
@@ -14,6 +14,9 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
 
 import com.asia.kitty.R;
 
