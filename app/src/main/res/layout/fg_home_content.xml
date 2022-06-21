@@ -10,6 +10,51 @@
         android:background="@color/lightGray"
         >
     </com.asia.kitty.components.HomeNavigationBar>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_vp"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="#ffff00"
+            >
+
+        </androidx.viewpager.widget.ViewPager>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#880000"
+            android:padding="8dp"
+            android:layout_alignBottom="@+id/viewpager_vp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/viewpager_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="我是帅哥"
+                />
+            <LinearLayout
+                android:id="@+id/ll_dots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal"
+                android:background="@color/red"
+                >
+
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imageView_pic1"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        >
+    </ImageView>
     <TextView
         android:id="@+id/txt_content"
         android:layout_width="match_parent"
