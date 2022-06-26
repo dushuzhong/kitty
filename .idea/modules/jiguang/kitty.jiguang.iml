@@ -31,27 +31,10 @@
     <output-test url="file://$MODULE_DIR$/../../../jiguang/build/intermediates/javac/debugUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../jiguang">
-      <sourceFolder url="file://$MODULE_DIR$/../../../jiguang/src/main/assets" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../jiguang/src/main/res" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../jiguang/build/generated/res/resValues/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../jiguang/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/../../../jiguang/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../jiguang/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../jiguang/build" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-plugin-honor-v4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jcore-android-3.2.4.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-plugin-vivo-v4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-plugin-huawei-v4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/MiPush_SDK_Client_4_9_1.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-plugin-oppo-v4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/jpush-android-plugin-xiaomi-v4.7.0.jar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/HiPushSdkCommon-v6.0.4.101-release.aar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/push_sdk_v3.0.0.4_484.aar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/com.heytap.msp-push-3.0.0.aar" level="project" />
-    <orderEntry type="library" name="Gradle: ./jiguang/libs/HiPushSdk-v6.0.4.101-release.aar" level="project" />
   </component>
 </module>

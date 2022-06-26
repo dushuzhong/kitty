@@ -1,5 +1,6 @@
 package com.asia.kitty.Adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -34,12 +35,18 @@ public class MyBannerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         //根据条目所在位置(利用Position),从ImageViews集合里获取相对应的ImageVIew图片.
+        Log.i("instantiateItem",String.valueOf(position));
         ImageView imageView = imageViews.get(position % imageResIds.length);
         //把得到ImageView对象,添加给VIewPager对象,也就是container,使用addView
+        //container.removeView(imageView);
+        //if (isViewFromObject(imageView,container)) {
+        //}
         container.addView(imageView);
+
         //注意:你添加给VIewPager什么控件,就要返回该控件,给isViewFromObject进行比较判断,这里添加的是ImageView,返回的就是ImageView
         return imageView;
     }
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         //构造方法删除后,也是固定格式:container.removeView((View) object);

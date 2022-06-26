@@ -4,6 +4,9 @@
       <root url="jar://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/HiPushSdkCommon-v6.0.4.101-release/jars/classes.jar!/" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/HiPushSdkCommon-v6.0.4.101-release/res" />
       <root url="file://$PROJECT_DIR$/../.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/HiPushSdkCommon-v6.0.4.101-release/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/jetified-HiPushSdkCommon-v6.0.4.101-release/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/jetified-HiPushSdkCommon-v6.0.4.101-release/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d74e24fe5263c0e0af3a18076d25309/jetified-HiPushSdkCommon-v6.0.4.101-release/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
