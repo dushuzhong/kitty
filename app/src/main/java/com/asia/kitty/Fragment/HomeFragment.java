@@ -1,15 +1,21 @@
 package com.asia.kitty.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Handler;
 import android.os.Message;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -18,15 +24,23 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.asia.kitty.Adapter.BookAdapter;
 import com.asia.kitty.Adapter.MyBannerAdapter;
+import com.asia.kitty.MusicPlayActivity;
 import com.asia.kitty.R;
 import com.asia.kitty.components.HomeNavigationBar;
+import com.asia.kitty.model.Fruit;
+import com.asia.kitty.service.TimeHelper;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 
+
 import java.util.ArrayList;
+import java.util.List;
 
 // 定义一个MyFragment
 // getActivity 获取获取Fragment所在activity
@@ -38,7 +52,8 @@ public class HomeFragment extends Fragment {
     public HomeFragment(String content) {
         this.content = content;
     }
-    private ImageView imageView;
+
+    private ImageView imageView; //SimpleDraweeView,ImageView
 
     // 轮播图上显示的点
     private LinearLayout ll_dots;
@@ -48,6 +63,7 @@ public class HomeFragment extends Fragment {
     private ViewPager viewpager_vp;
     // 建立一个ArrayList集合.泛型指定为ImageView.
     ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+    private List<Fruit> fruitList = new ArrayList<>();
 
     private Handler handler = new Handler() {
         @Override
@@ -63,6 +79,8 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+
+
 
     private int[] imageResIds = {R.drawable.lunbo1,R.drawable.lunbo2,R.drawable.lunbo3};
     private String[] descs = {"网页设计师联盟","教程网","PS联盟"};
@@ -130,11 +148,70 @@ public class HomeFragment extends Fragment {
 
         // 设置图片
         imageView = view.findViewById(R.id.imageView_pic1);
-        Glide.with(this)
-                .load("https://images.unsplash.com/photo-1609225151006-1d67f4e88db0?ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDZ8fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60")
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
-                .into(imageView);
+//        Glide.with(this)
+//                .load("https://images.unsplash.com/photo-1609225151006-1d67f4e88db0?ixid=MnwxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDZ8fHxlbnwwfHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60")
+//                .apply(RequestOptions.bitmapTransform(new RoundedCorners(20)))
+//                .into(imageView);
+
+        // 支持下gif
+        Glide.with(this).load("https://p8.itc.cn/q_70/images03/20220425/56bd93a37b8c4aabaca048c9e1b5cb62.gif").into(imageView);
+
+        // 列表需要的假数据
+        initFruit();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        // 设置列表
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(layoutManager);
+
+        // 设置格子
+        //GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        //gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);//HORIZONTAL,VERTICAL
+        //recyclerView.setLayoutManager(gridLayoutManager);
+
+        BookAdapter fruitAdapter = new BookAdapter(fruitList);
+        recyclerView.setAdapter(fruitAdapter);
+        fruitAdapter.setOnItemClickListener(new BookAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, BookAdapter.ViewName viewName, int position) {
+                switch (v.getId()){
+                    case R.id.fruit_image:
+                        //Toast.makeText(getActivity(),"你点击了水果"+(position+1),Toast.LENGTH_SHORT).show();
+                        Log.i("MusicPlayActivity",String.valueOf(getActivity()));
+                        Log.i("MusicPlayActivity",String.valueOf(MusicPlayActivity.class));
+                        Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
+                        startActivity(intent);
+                        break;
+                    default:
+                        Toast.makeText(getActivity(),"你点击了item"+(position+1),Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+
+            @Override
+            public void onItemLongClick(View v) {
+
+            }
+        });
         return view;
+    }
+
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//
+//
+//    }
+
+    // 模拟分组数据
+    private void initFruit() {
+        for (int i = 1; i > 0; i--) { // 三组数据
+            Fruit orange = new Fruit("orange",R.drawable.juzi);
+            fruitList.add(orange);
+            Fruit waterMelon = new Fruit("waterMelon",R.drawable.xigua);
+            fruitList.add(waterMelon);
+            Fruit apple = new Fruit("apple",R.drawable.pingguo);
+            fruitList.add(apple);
+        }
     }
 
     @Override

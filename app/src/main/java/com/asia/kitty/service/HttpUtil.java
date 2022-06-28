@@ -42,20 +42,4 @@ public class HttpUtil {
         return m.matches();
     }
 
-//    public void parseJsonWithJsonObject(Response response) throws IOException {
-//        String responseData = response.body().string();
-//        try{
-//            JSONArray jsonArray=new JSONArray(responseData);
-//            for(int i=0;i<jsonArray.length();i++)
-//            {
-//                JSONObject jsonObject=jsonArray.getJSONObject(i);
-//                String id= jsonObject.getString("id");
-//                String name = jsonObject.getString("name");
-//                //idList.add(id);
-//                //nameList.add(name);
-//            }
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
