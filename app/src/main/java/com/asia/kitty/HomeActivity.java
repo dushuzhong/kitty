@@ -28,12 +28,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_home);
-
         //fManager = getFragmentManager();
         fManager = getSupportFragmentManager();
-
         bindViews();
         txt_channel.performClick();   //模拟一次点击，既进去后选择第一项
     }

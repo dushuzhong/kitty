@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.asia.kitty.Adapter.BookAdapter;
 import com.asia.kitty.Adapter.MyBannerAdapter;
+import com.asia.kitty.CountdownActivity;
 import com.asia.kitty.MusicPlayActivity;
 import com.asia.kitty.R;
 import com.asia.kitty.components.HomeNavigationBar;
@@ -41,6 +42,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 // 定义一个MyFragment
 // getActivity 获取获取Fragment所在activity
@@ -56,14 +59,19 @@ public class HomeFragment extends Fragment {
     private ImageView imageView; //SimpleDraweeView,ImageView
 
     // 轮播图上显示的点
-    private LinearLayout ll_dots;
+    private LinearLayout list_points;
     // 轮播图组件上的文本
     private TextView viewpager_tv;
     // 将ViewPager定义为全局变量,方便使用.
     private ViewPager viewpager_vp;
     // 建立一个ArrayList集合.泛型指定为ImageView.
-    ArrayList<ImageView> imageViews = new ArrayList<ImageView>();
+    ArrayList<ImageView> list_images = new ArrayList<ImageView>();
+    // 底部圆点
+    ArrayList<ImageView> tvList = new ArrayList<>();
     private List<Fruit> fruitList = new ArrayList<>();
+    private ScheduledThreadPoolExecutor executor;
+
+    private int currentPage;
 
     private Handler handler = new Handler() {
         @Override
@@ -71,65 +79,80 @@ public class HomeFragment extends Fragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 1:
-                    //得到当前VIewPager和用户交互的item条目.VIewPager对象.getCurrentItem 333
-                    int currentItem = viewpager_vp.getCurrentItem();
-                    viewpager_vp.setCurrentItem(currentItem + 1);
-                    sendEmptyMessageDelayed(1,3000);
+                    viewpager_vp.setCurrentItem(msg.arg1);
                 break;
             }
         }
     };
 
-
-
     private int[] imageResIds = {R.drawable.lunbo1,R.drawable.lunbo2,R.drawable.lunbo3};
-    private String[] descs = {"网页设计师联盟","教程网","PS联盟"};
+    private String[] descriptions = {"网页设计师联盟","教程网","PS联盟"};
 
+    private boolean isStop = false; // 是否停止轮播
+    private MyBannerAdapter adapter;
+
+    // 配置轮播
     private void initViewPage(View view) {
-        // 找到可以设置点的容器
-        ll_dots = (LinearLayout) view.findViewById(R.id.ll_dots);
-        // 找到文本对象
-        viewpager_tv = (TextView) view.findViewById(R.id.viewpager_tv);
+
         // 找到viewPager对象
         viewpager_vp = (ViewPager) view.findViewById(R.id.viewpager_vp);
+        // 找到可以设置点的容器
+        list_points = (LinearLayout) view.findViewById(R.id.ll_dots);
 
-        for (int x = 0; x < imageResIds.length; x++) {
-            ImageView imageView_t = new ImageView(getContext());
-            imageView_t.setBackgroundResource(imageResIds[x]);
-            imageViews.add(imageView_t);
+        InitData();
 
-            // 增加点
-            dot();
+        adapter = new MyBannerAdapter(list_images, tvList, descriptions, view);
+        viewpager_vp.setAdapter(adapter);
+        viewpager_vp.setOnPageChangeListener(adapter);
+        viewpager_vp.setPageTransformer(true, new ViewPager.PageTransformer() {
+            @Override
+            public void transformPage(@NonNull View page, float position) {
+                //立体翻转
+                int myWidth = page.getWidth();
+                int myPivotX = 0;
+                if(position <= 1 && position > 0){
+                    myPivotX = 0;
+                }else if(position < 0 && position >= -1){
+                    myPivotX = myWidth;
+                }
+                page.setPivotX(myPivotX);
+                page.setRotationY(45f * position);
+
+            }
+        });
+    }
+
+    private void InitData() {
+
+        for (int img : imageResIds) {
+            LinearLayout.LayoutParams imageViewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            imageViewParams.leftMargin = 15;
+            imageViewParams.topMargin = 2;
+
+            ImageView imageView = new ImageView(getContext());
+            imageView.setBackgroundResource(img);
+            imageView.setLayoutParams(imageViewParams);
+            list_images.add(imageView);
+
+            ImageView view = new ImageView(getContext());
+            //为这个View对象设置背景setBackgroundResource
+            view.setBackgroundResource(R.drawable.icon_blue_24);
+            //为View对象设置宽高参数,使用参数对象LayoutParams(int,int),给哪个容器,就用哪个容器创建
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(20, 20);
+            layoutParams.rightMargin = 10;
+            layoutParams.topMargin = 16;
+            layoutParams.leftMargin = 10;
+            //把准备好的layoutParams参数对象,设置给View对象.setLayoutParams
+            view.setLayoutParams(layoutParams);
+            tvList.add(view);
+
+            list_points.addView(view);
+
         }
 
-        viewpager_vp.setAdapter(new MyBannerAdapter(imageViews,imageResIds));
-        viewpager_vp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //同过getCurrentItem方法拿到当前用户所交互ViewPager的item位置.
-                int currentItem = viewpager_vp.getCurrentItem();
-                //通过得到的这个item,给text和点进行选中的设置.
-                changeTextAndDot(currentItem % imageResIds.length);
-                Log.d("aaa", "onPageScrolled: Position-" + position + " positionOffset-" + positionOffset + " positionOffsetPixels-" + positionOffsetPixels);
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                Log.d("aaa", "onPageSelected: position" + position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-
-            //指定VIewPager默认跳转到某页.一般是最大数的一般.setCurrentItem就是设置VIewPager跳到哪页,get是获取.333
-            //viewpager_vp.setCurrentItem(Integer.MAX_VALUE / 2 - 3);
-            //通过handler,3秒后开始循环ViwePager的item.sendEmptyMessageDelayed,333
-            //    handler.sendEmptyMessageDelayed(1, 3000);
-            //ViewPagerTouchEvent();
-        });
+        // 第一个选中
+        ImageView item = (ImageView)tvList.get(0);
+        item.setImageResource(R.drawable.icon_red_24);
     }
 
     @Nullable
@@ -175,14 +198,16 @@ public class HomeFragment extends Fragment {
             public void onItemClick(View v, BookAdapter.ViewName viewName, int position) {
                 switch (v.getId()){
                     case R.id.fruit_image:
-                        //Toast.makeText(getActivity(),"你点击了水果"+(position+1),Toast.LENGTH_SHORT).show();
-                        Log.i("MusicPlayActivity",String.valueOf(getActivity()));
-                        Log.i("MusicPlayActivity",String.valueOf(MusicPlayActivity.class));
+                        // Toast.makeText(getActivity(),"你点击了水果"+(position+1),Toast.LENGTH_SHORT).show();
+                        // Log.i("MusicPlayActivity",String.valueOf(getActivity()));
+                        // Log.i("MusicPlayActivity",String.valueOf(MusicPlayActivity.class));
                         Intent intent = new Intent(getActivity(), MusicPlayActivity.class);
                         startActivity(intent);
                         break;
                     default:
-                        Toast.makeText(getActivity(),"你点击了item"+(position+1),Toast.LENGTH_SHORT).show();
+                        Intent intent2 = new Intent(getActivity(), CountdownActivity.class);
+                        startActivity(intent2);
+                        // Toast.makeText(getActivity(),"你点击了item"+(position+1),Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
@@ -194,13 +219,6 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
-
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//
-//
-//    }
 
     // 模拟分组数据
     private void initFruit() {
@@ -224,23 +242,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        handler.removeMessages(1);
-    }
 
-    // 动态的创建点
-    public void dot() {
-        //创建一个View对象;
-        View view = new View(getContext());
-        //为这个View对象设置背景setBackgroundResource
-        view.setBackgroundResource(R.drawable.jpush_richpush_progressbar);
-        //为View对象设置宽高参数,使用参数对象LayoutParams(int,int),给哪个容器,就用哪个容器创建
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(8, 8);
-        //使用参数对象LayoutParams.leftMargin=int,相当于布局里的padding.
-        layoutParams.leftMargin = 8;
-        //把准备好的layoutParams参数对象,设置给View对象.setLayoutParams
-        view.setLayoutParams(layoutParams);
-        //最后容器对象.addView(VIwe);
-        ll_dots.addView(view);
     }
 
     // viewPager点击事件
@@ -266,19 +268,6 @@ public class HomeFragment extends Fragment {
             }
 
         });
-    }
-
-    // 改变文本和dot
-    public void changeTextAndDot(int position) {
-        //根据ViewPager的item的变化,设置对应的文本.setText(descs[position]);
-        viewpager_tv.setText(descs[position]);
-        //对点进行判断是否是当前页的点,用for循环,拿到所有点的位置,然后和position对比
-        for (int x = 0; x < imageResIds.length; x++) {
-            //.getChildAt(x);拿到容器的子控件.得到VIew对象
-            View childAt = ll_dots.getChildAt(x);
-            //为View设置背景图片,,使用三元运算符.
-            childAt.setBackgroundResource(x == position ? R.drawable.jpush_btn_bg_green_playable : R.drawable.jpush_richpush_progressbar);
-        }
     }
 
 }

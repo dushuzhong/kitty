@@ -17,6 +17,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 //import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 //import com.asia.kitty.components.EditTextWithDel; // 引入自定义组件
 import com.asia.kitty.components.LoadingDialog;
 import com.asia.kitty.model.Customer;
+import com.asia.kitty.service.ApiService;
 import com.asia.kitty.service.HttpUtil;
 import com.asia.kitty.service.IPUitl;
 import com.asia.kitty.service.MD5Util;
@@ -52,13 +54,17 @@ import java.util.SortedMap;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+
 import okhttp3.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn_start;
@@ -200,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
         box1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
 //                    if(show.getVisibility()==View.VISIBLE){
 //                        show.setText(love+box1.getText());
 //                        textColor();
@@ -210,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
 //                    }
                     Log.i("checkbox",String.valueOf(isChecked));
                     textColor();
-                }else{
+                } else {
 //                    show.setText(not);
 //                    setTextBlack();
                     Log.i("checkbox",String.valueOf(isChecked));
@@ -297,25 +303,25 @@ public class MainActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    //创建OkHttpClient对象
-                    OkHttpClient client = new OkHttpClient();
-                    //创建Request
-                    Request request = new Request.Builder()
-                            .url(url)//访问连接
-                            .get()
-                            .build();
-                    //创建Call对象
-                    Call call = client.newCall(request);
-                    //通过execute()方法获得请求响应的Response对象
-                    Response response = call.execute();
-                    if (response.isSuccessful()) {
-                        //处理网络请求的响应，处理UI需要在UI线程中处理
-                        //...
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                //               try {
+ //                   //创建OkHttpClient对象
+//                    OkHttpClient client = new OkHttpClient();
+//                    //创建Request
+//                    Request request = new Request.Builder()
+//                            .url(url)//访问连接
+//                            .get()
+//                            .build();
+//                    //创建Call对象
+//                    Call call = client.newCall(request);
+//                    //通过execute()方法获得请求响应的Response对象
+//                    Response response = call.execute();
+//                    if (response.isSuccessful()) {
+//                        //处理网络请求的响应，处理UI需要在UI线程中处理
+//                        //...
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         }).start();
     }
@@ -324,42 +330,42 @@ public class MainActivity extends AppCompatActivity {
     public void getAsyncRequest(String url) {
         Log.i("getAsyncRequest","OnRequest");
         LoadingDialog.getInstance(MainActivity.this).show();
-
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder().url(url).build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //...
-                Log.i("getAsyncRequest_onFailure", e.toString());
-
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
-                    String result = response.body().string();
-                    //处理UI需要切换到UI线程处理
-                    Log.i("getAsyncRequest_onResponse", result);
-                    SharedPreUtil sh = SharedPreUtil.getInstance(MainActivity.this);
-                    sh.saveUserInfo(account_edit.getText().toString(),password_edit.getText().toString());
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            LoadingDialog.getInstance(MainActivity.this).hide();
-
-                            Intent intent = new Intent(MainActivity.this,Home2Activity.class);
-                            startActivityForResult(intent,1);
-                        }
-                    });
-
-                    response.body().close();
-
-                }
-            }
-        });
+//
+//        OkHttpClient client = new OkHttpClient();
+//        Request request = new Request.Builder().url(url).build();
+//        Call call = client.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                //...
+//                Log.i("getAsyncRequest_onFailure", e.toString());
+//
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if(response.isSuccessful()){
+//                    String result = response.body().string();
+//                    //处理UI需要切换到UI线程处理
+//                    Log.i("getAsyncRequest_onResponse", result);
+//                    SharedPreUtil sh = SharedPreUtil.getInstance(MainActivity.this);
+//                    sh.saveUserInfo(account_edit.getText().toString(),password_edit.getText().toString());
+//
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            LoadingDialog.getInstance(MainActivity.this).hide();
+//
+//                            Intent intent = new Intent(MainActivity.this,Home2Activity.class);
+//                            startActivityForResult(intent,1);
+//                        }
+//                    });
+//
+//                    response.body().close();
+//
+//                }
+//            }
+//        });
     }
 
     // 异步登录post请求
@@ -447,32 +453,66 @@ public class MainActivity extends AppCompatActivity {
                         response.body().close();
                     }
                 });
+
+//                Retrofit mRetrofit2 = new Retrofit.Builder()
+//                        .baseUrl("https://test.hbglyy.cn/api-b2b-app/")
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                //根据Retrofit实例创建接口服务对象
+//                ApiService apiService1 = mRetrofit2.create(ApiService.class);
+//                Call<Object> post = apiService1.getPostDataBody(body);
+//                //发送异步请求
+//                post.clone().enqueue(new Callback<Object>() {
+//                    @Override
+//                    public void onResponse(Call<Object> call, Response<Object> response) {
+//                        Object body = response.body();
+//                        String jsonData = body.toString();
+//                        Log.i("login_response:",jsonData);
+//                        if (response.code() == 200) {
+//                            jsonJXLoginData(jsonData);
+//                        }
+//                        if(body == null) return;
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<Object> call, Throwable t) {
+//                        Log.i("Retrofit_login_e",t.toString());
+//                    }
+//                });
+
             }
         });
         loginThread.start();
     }
 
+    // 登录后的json解析
     private void jsonJXLoginData(String jsonData) {
-        if (jsonData != null) {
+        if (TextUtils.isEmpty(jsonData) == false) {
             try {
                 JSONObject jsonObject = new JSONObject(jsonData);
                 int responseCode = jsonObject.getInt("code");
+
                 if (responseCode == 0) {
                     String customerJson = jsonObject.getString("customer");
                     Gson gson = new Gson();
                     Customer customer = gson.fromJson(customerJson,Customer.class);
                     Log.i("login_response_uInfo",customer.getCustomerId());
+                    // 保存客户信息
+
                     Looper.prepare();
                     Toast.makeText(MainActivity.this,"登录成功",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this,Home2Activity.class);
                     startActivity(intent);
+
                     Looper.loop();
                 } else {
                     Looper.prepare();
                     Toast.makeText(MainActivity.this,"用户名或密码不正确",Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
+
             } catch (Exception e) {
+                Log.i("login_response_err",e.toString());
                 e.printStackTrace();
             }
         }
@@ -496,25 +536,25 @@ public class MainActivity extends AppCompatActivity {
         // String jsonStr = "{\"username\":\"Sia\"}";//json数据.
         //RequestBody body = RequestBody.create(jsonType, jsonStr);
 
-        Request request = new Request.Builder()
-                .url(url)
-                .post(body)
-                .build();
-        Call call = client.newCall(request);
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                //...
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                if(response.isSuccessful()){
-                    String result = response.body().string();
-                    //处理UI需要切换到UI线程处理
-                }
-            }
-        });
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(body)
+//                .build();
+//        Call call = client.newCall(request);
+//        call.enqueue(new Callback() {
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                //...
+//            }
+//
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                if(response.isSuccessful()){
+//                    String result = response.body().string();
+//                    //处理UI需要切换到UI线程处理
+//                }
+//            }
+//        });
     }
 
     // 上传文件
@@ -525,7 +565,7 @@ public class MainActivity extends AppCompatActivity {
                 .url(url)
                 .post(body)
                 .build();
-        Call call = client.newCall(request);
+        //Call call = client.newCall(request);
         //call.enqueue();
         //...
     }

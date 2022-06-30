@@ -5,52 +5,81 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import com.asia.kitty.R;
 
-public class MyBannerAdapter extends PagerAdapter {
+import org.w3c.dom.Text;
 
-    private ArrayList<ImageView> imageViews;
-    private int[] imageResIds;
-    public MyBannerAdapter(ArrayList<ImageView> imageViews,int[] imgIds) {
-        this.imageViews = imageViews;
-        this.imageResIds = imgIds;
+import java.util.List;
+
+public class MyBannerAdapter extends PagerAdapter implements ViewPager.OnPageChangeListener {
+
+    private List<ImageView> list_imgs;
+    private List<ImageView> points;
+    private View view = null;
+    private TextView tv_title;
+    private String [] titles;
+    public MyBannerAdapter(List<ImageView> list_images, List<ImageView> points, String [] titles,View view) {
+        this.list_imgs = list_images;
+        this.points = points;
+        this.view = view;
+        this.titles = titles;
+        // 找到文本对象
+        tv_title = (TextView) view.findViewById(R.id.viewpager_tv);
+    }
+
+    @NonNull
+    @Override //设置view
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        container.addView(list_imgs.get(position));
+        return list_imgs.get(position);
     }
 
     @Override
     public int getCount() {
-        return Integer.MAX_VALUE;
+        return list_imgs.size();
     }
 
-    //isViewFromObject,判断ViewPager的条目View对象和InstantiateItem返回的Object对象是否一致,固定格式:return view==object;
     @Override
-    public boolean isViewFromObject(View view, Object object) {
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
 
-    //instantiateItem,ViewPager添加条目的操作.container:VIewPager的化身,控件都是添加到他身上,position:代表用户滑动条目的位置
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        //根据条目所在位置(利用Position),从ImageViews集合里获取相对应的ImageVIew图片.
-        Log.i("instantiateItem",String.valueOf(position));
-        ImageView imageView = imageViews.get(position % imageResIds.length);
-        //把得到ImageView对象,添加给VIewPager对象,也就是container,使用addView
-        //container.removeView(imageView);
-        //if (isViewFromObject(imageView,container)) {
-        //}
-        container.addView(imageView);
-
-        //注意:你添加给VIewPager什么控件,就要返回该控件,给isViewFromObject进行比较判断,这里添加的是ImageView,返回的就是ImageView
-        return imageView;
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView(list_imgs.get(position));
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        //构造方法删除后,也是固定格式:container.removeView((View) object);
-        container.removeView((View) object);
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        Log.i("MyBannerAdapter","onPageScrolled");
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        Log.i("MyBannerAdapter","onPageSelected");
+        for ( int i = 0; i < list_imgs.size(); i++){
+            ImageView currentPoint = (ImageView) points.get(i);
+            if (position == i) {
+                String title = this.titles[i];
+                Log.i("MyBannerAdapter_title",title);
+                tv_title.setText(title); // 设置选中的新标题
+                currentPoint.setImageResource(R.drawable.icon_red_24);
+            } else {
+                currentPoint.setImageResource(R.drawable.icon_blue_24);
+            }
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        Log.i("MyBannerAdapter","onPageScrollStateChanged");
+
     }
 
 }
