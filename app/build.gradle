@@ -57,7 +57,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -98,7 +99,7 @@ dependencies {
     // GSON解析
     implementation 'com.google.code.gson:gson:2.8.6'
     // 轮播图
-    // api 'com.youth.banner:banner:1.4.10'
+    //implementation 'com.youth.banner:banner:2.1.0'
     // 图片下载库
 //    implementation 'com.github.bumptech.glide:glide:4.12.0'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
@@ -116,6 +117,7 @@ dependencies {
     //implementation 'cn.jiguang.sdk.plugin:xiaomi:4.7.0'
     // 引入图片异步加载库
     implementation "com.github.bumptech.glide:glide:4.11.0"
+    implementation 'com.google.android.gms:play-services-analytics-impl:17.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     implementation 'com.google.zxing:core:3.3.3'

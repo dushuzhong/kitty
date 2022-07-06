@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-        <style name="Theme.Kitty" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Kitty" parent="Theme.AppCompat.Light.NoActionBar">
 
 <!--    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">-->
         <!-- Primary brand color. -->
@@ -9,5 +9,8 @@
         <item name="colorAccent">@color/teal_200</item>
         <!-- Customize your theme here. -->
         <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    <style name="AppTheme.Divider">
+        <item name="android:background">@android:attr/listDivider</item>
     </style>
 </resources>

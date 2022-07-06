@@ -63,7 +63,8 @@ public class MusicPlayActivity extends AppCompatActivity {
             }
         });
 
-        String url = "http://music.163.com/song/media/outer/url?id=447925558.mp3";
-        player = new MusicPlayer(skbProgress, url);
+        //String url = "http://music.163.com/song/media/outer/url?id=447925558.mp3";
+        //player = new MusicPlayer(skbProgress, url);
+        player = new MusicPlayer(skbProgress,MusicPlayActivity.this);
     }
 }

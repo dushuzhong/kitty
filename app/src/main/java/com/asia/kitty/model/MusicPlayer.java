@@ -1,4 +1,5 @@
 package com.asia.kitty.model;
+import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Handler;
@@ -8,11 +9,13 @@ import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 
+import com.asia.kitty.R;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 // 音乐播放
-public class MusicPlayer {
+public class MusicPlayer implements MediaPlayer.OnBufferingUpdateListener,MediaPlayer.OnPreparedListener{
 
     public MediaPlayer mediaPlayer;
     private SeekBar skbProgress;
@@ -45,34 +48,50 @@ public class MusicPlayer {
         }
     };
 
+    //OnBufferingUpdateListener
+    @Override
+    public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
+        skbProgress.setSecondaryProgress(i);
+        int currentProgress = skbProgress.getMax() * mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration();
+        Log.e(currentProgress+"% play", i + "% buffer");
+    }
+
+    //OnPreparedListener
+    @Override
+    public void onPrepared(MediaPlayer mediaPlayer) {
+        mediaPlayer.start();
+    }
+
     // 音乐播放器实例
     public MusicPlayer(SeekBar skbProgress, String url) {
         this.skbProgress = skbProgress;
         try {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-            mediaPlayer.setOnBufferingUpdateListener(new MediaPlayer.OnBufferingUpdateListener() {
-                @Override
-                public void onBufferingUpdate(MediaPlayer mediaPlayer, int i) {
-                    skbProgress.setSecondaryProgress(i);
-                    int currentProgress = skbProgress.getMax() * mediaPlayer.getCurrentPosition() / mediaPlayer.getDuration();
-                    Log.e(currentProgress+"% play", i + "% buffer");
-                }
-            });
-            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                @Override
-                public void onPrepared(MediaPlayer mediaPlayer) {
-                    mediaPlayer.start();
-                }
-            });
-
             mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare(); // might take long! (for buffering, etc)
+            mediaPlayer.prepare();
 
         } catch (Exception e) {
             Log.e("mediaPlayer",e.toString());
         }
         mTimer.schedule(mTimeTask,0,1000);
+    }
+
+    // 播放本地实例
+    public MusicPlayer(SeekBar skbProgress, Context context) {
+        this.skbProgress = skbProgress;
+        try {
+            mediaPlayer = MediaPlayer.create(context, R.raw.test);
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mediaPlayer) {
+                    //mediaPlayer.reset();
+                }
+            });
+            mediaPlayer.prepare();//开始播放
+        } catch (Exception e) {
+            e.printStackTrace();//输出异常信息
+        }
     }
 
     public void play() {

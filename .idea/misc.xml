@@ -5,10 +5,15 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.12170263788968826" />
         <entry key="app/src/main/res/layout/activity_countdown.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/activity_home2.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/activity_musicplay.xml" value="0.18568840579710144" />
         <entry key="app/src/main/res/layout/base_item.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/fg_content.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/fg_home_content.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fg_my_content.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/fruit_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_list_animal.xml" value="0.13360507246376813" />
+        <entry key="app/src/main/res/layout/waterflow_item.xml" value="0.14235055724417425" />
       </map>
     </option>
   </component>

@@ -1,8 +1,6 @@
 package com.asia.kitty.components;
 
 import android.content.Context;
-//import android.support.annotation.NonNull;
-//import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -57,7 +55,7 @@ public class HomeNavigationBar extends FrameLayout {
         if (isLeftVisiable){
             leftImage.setVisibility(VISIBLE);
             leftImage.setOnClickListener(leftListener);
-        }else {
+        } else {
             leftImage.setVisibility(INVISIBLE);
         }
     }
@@ -68,10 +66,9 @@ public class HomeNavigationBar extends FrameLayout {
         if (isRightVisiable){
             rightImage.setVisibility(VISIBLE);
             rightImage.setOnClickListener(rightListener);
-        }else {
+        } else {
             rightImage.setVisibility(INVISIBLE);
         }
     }
-
 
 }
