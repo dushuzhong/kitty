@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 
 import com.asia.kitty.Fragment.HomeFragment;
 import com.asia.kitty.Fragment.MyFragment;
+import com.asia.kitty.Fragment.YYHHomeFragment;
 import com.asia.kitty.Reciever.MyBRReceiver;
 import com.asia.kitty.model.Song;
 import com.asia.kitty.service.MusicUtils;
@@ -24,7 +25,8 @@ public class Home2Activity extends AppCompatActivity implements RadioGroup.OnChe
     private RadioButton rb_channel;
 
     private HomeFragment fg1;
-    private MyFragment fg2,fg3,fg4;
+    private MyFragment fg2,fg4;
+    private YYHHomeFragment fg3;
     private FragmentManager fManager;
     private MyBRReceiver myReciever;
     private List<Song> songList = new ArrayList<Song>();
@@ -71,14 +73,13 @@ public class Home2Activity extends AppCompatActivity implements RadioGroup.OnChe
                 if (fg2 == null){
                     fg2 = new MyFragment("第二个Fragment");
                     fTransaction.add(R.id.ly_content,fg2);
-                    //fTransaction.add(R.id.ly_content,fg2);
                 } else {
                     fTransaction.show(fg2);
                 }
                 break;
             case R.id.rb_better:
                 if (fg3 == null) {
-                    fg3 = new MyFragment("第三个Fragment");
+                    fg3 = new YYHHomeFragment("第三个Fragment");
                     fTransaction.add(R.id.ly_content,fg3);
                 } else {
                     fTransaction.show(fg3);

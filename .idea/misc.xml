@@ -5,14 +5,28 @@
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.12170263788968826" />
         <entry key="app/src/main/res/layout/activity_countdown.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/activity_home.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/activity_home2.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/activity_musicplay.xml" value="0.18568840579710144" />
+        <entry key="app/src/main/res/layout/activity_tab.xml" value="0.1" />
         <entry key="app/src/main/res/layout/base_item.xml" value="0.15208333333333332" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.15579710144927536" />
         <entry key="app/src/main/res/layout/fg_content.xml" value="0.13360507246376813" />
         <entry key="app/src/main/res/layout/fg_home_content.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fg_my_content.xml" value="0.13360507246376813" />
+        <entry key="app/src/main/res/layout/fg_my_home.xml" value="0.15579710144927536" />
+        <entry key="app/src/main/res/layout/fg_my_set.xml" value="0.15579710144927536" />
+        <entry key="app/src/main/res/layout/fg_order_item.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/fragment_main.xml" value="0.15579710144927536" />
         <entry key="app/src/main/res/layout/fruit_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/item_empty.xml" value="0.15579710144927536" />
         <entry key="app/src/main/res/layout/item_list_animal.xml" value="0.13360507246376813" />
+        <entry key="app/src/main/res/layout/item_list_tab.xml" value="0.19157608695652173" />
+        <entry key="app/src/main/res/layout/item_loading.xml" value="0.15579710144927536" />
+        <entry key="app/src/main/res/layout/item_order_list.xml" value="0.20052083333333334" />
+        <entry key="app/src/main/res/layout/item_sub.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/list_item_normal.xml" value="0.15579710144927536" />
+        <entry key="app/src/main/res/layout/tab_red_item.xml" value="0.19157608695652173" />
         <entry key="app/src/main/res/layout/waterflow_item.xml" value="0.14235055724417425" />
       </map>
     </option>

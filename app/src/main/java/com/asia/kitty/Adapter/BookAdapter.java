@@ -80,7 +80,7 @@ public class BookAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == ITEM_TYPE.ITEM_TYPE_ITEM.ordinal()) {
-            View view = inflater.inflate(R.layout.fruit_item,parent,false);
+            View view = inflater.inflate(R.layout.fruit_item, parent,false);
             NormalHolder viewHolder = new NormalHolder(view);
             viewHolder.fruitView.setOnClickListener(new View.OnClickListener() {
                 @Override

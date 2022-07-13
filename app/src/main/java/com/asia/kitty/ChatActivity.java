@@ -4,7 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 //import androidx.core.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+//import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 //import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,7 @@ public class ChatActivity extends AppCompatActivity implements AbsListView.OnScr
     private ListView list_content;
     private ArrayList<Object> mData = null;
     private MutiLayoutAdapter myAdapter = null;
-    private SwipeRefreshLayout swipeRefreshLayout;
+//    private SwipeRefreshLayout swipeRefreshLayout;
     private View footerView;
 
     private Handler handler = new Handler(){ // 接收到信号
@@ -34,10 +35,10 @@ public class ChatActivity extends AppCompatActivity implements AbsListView.OnScr
             super.handleMessage(msg);
             switch (msg.what){
                 case 0x101:
-                    if (swipeRefreshLayout.isRefreshing()){
-                        myAdapter.notifyDataSetChanged();
-                        swipeRefreshLayout.setRefreshing(false);//设置不刷新
-                    }
+//                    if (swipeRefreshLayout.isRefreshing()){
+//                        myAdapter.notifyDataSetChanged();
+//                        swipeRefreshLayout.setRefreshing(false);//设置不刷新
+//                    }
                     break;
             }
         }
@@ -70,9 +71,9 @@ public class ChatActivity extends AppCompatActivity implements AbsListView.OnScr
         list_content.addFooterView(footerView);
 
         // config 下拉刷新
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_srl);
+        //swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.main_srl);
         // 设置颜色
-        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        //swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,android.R.color.holo_orange_light, android.R.color.holo_red_light);
         // 刷新监听
 //        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 //            @Override

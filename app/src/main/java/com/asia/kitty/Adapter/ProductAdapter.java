@@ -1,5 +1,6 @@
 package com.asia.kitty.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private List<GoodProduct> products;
     private static RecycleItemClickListener itemClickListener;
 
-    public ProductAdapter(List<GoodProduct> list,RecycleItemClickListener clickListener) {
+    public ProductAdapter(List<GoodProduct> list,ProductAdapter.RecycleItemClickListener clickListener) {
         products = list;
         itemClickListener = clickListener;
     }
@@ -37,6 +38,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.imageView.setImageResource(products.get(position).getImg());
         holder.textView.setText(products.get(position).getTitle());
+
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                ProductAdapter.this.onItemClick(v,position);
+            }
+        });
     }
 
     @Override
@@ -53,11 +62,41 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             super(itemView);
             imageView = (ImageView) itemView.findViewById(R.id.waterflow_item_img);
             textView = (TextView) itemView.findViewById(R.id.waterflow_item_title);
+
         }
 
         @Override
         public void onClick(View view) {
+            Log.i("prod11111","222");
             itemClickListener.onItemClick(view,this.getLayoutPosition());
+        }
+    }
+
+    // 定义点击的回调接口
+    public interface RecycleItemClickListener {
+        // 点击布局中item事件回调
+        void onItemClick(View v, ProductAdapter.ViewName viewName, int position);
+        // 长按布局回调
+        void onItemLongClick(View v);
+
+        void onItemClick(View view, int layoutPosition);
+    }
+
+    private ProductAdapter mOnItemClickListener;//声明自定义的接口
+
+    //定义方法并暴露给外面的调用者
+    public void setOnItemClickListener(ProductAdapter.RecycleItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+    //item里面有多个控件可以点击
+    public enum  ViewName {
+        ITEM1,
+    }
+
+    private void onItemClick(View v, int position) {
+        if (itemClickListener != null) {
+            itemClickListener.onItemClick(v, ViewName.ITEM1, position);
         }
     }
 

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,8 +19,10 @@ import android.widget.TextView;
 //import android.support.annotation.Nullable;
 
 import com.asia.kitty.Adapter.ProductAdapter;
-import com.asia.kitty.Interface.RecycleItemClickListener;
+import com.asia.kitty.CountdownActivity;
+import com.asia.kitty.CustomTabActivity;
 import com.asia.kitty.R;
+import com.asia.kitty.YYHHomeActivity;
 import com.asia.kitty.components.SpaceItemDecoration;
 import com.asia.kitty.model.GoodProduct;
 import com.google.android.gms.analytics.ecommerce.Product;
@@ -47,7 +50,20 @@ public class MyFragment extends Fragment {
         recycleView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recycleView.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
 
-        RecycleItemClickListener itemClickListener = new RecycleItemClickListener() {
+        ProductAdapter.RecycleItemClickListener itemClickListener = new ProductAdapter.RecycleItemClickListener() {
+            @Override
+            public void onItemClick(View v, ProductAdapter.ViewName viewName, int position) {
+                Log.i("MyFragment","111");
+                //Intent intent2 = new Intent(getActivity(), YYHHomeActivity.class);
+                Intent intent2 = new Intent(getActivity(), CustomTabActivity.class);
+                startActivity(intent2);
+            }
+
+            @Override
+            public void onItemLongClick(View v) {
+
+            }
+
             @Override
             public void onItemClick(View view, int position) {
 
@@ -55,7 +71,7 @@ public class MyFragment extends Fragment {
         };
 
         initData();
-        ProductAdapter productAdapter = new ProductAdapter(productList, itemClickListener);
+        ProductAdapter productAdapter = new ProductAdapter(productList,  itemClickListener);
         recycleView.setAdapter(productAdapter);
 
         SpaceItemDecoration decoration = new SpaceItemDecoration(16);

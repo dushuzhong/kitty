@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: ./jiguang/libs/push_sdk_v3.0.0.4_484.aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01accaea12904c5954c1fb3e8b03422a/jetified-push_sdk_v3.0.0.4_484/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01accaea12904c5954c1fb3e8b03422a/jetified-push_sdk_v3.0.0.4_484/jars/libs/pushOpenClient_v3.0.0.4_484_81c1f83_release.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01accaea12904c5954c1fb3e8b03422a/jetified-push_sdk_v3.0.0.4_484/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/01accaea12904c5954c1fb3e8b03422a/jetified-push_sdk_v3.0.0.4_484/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d4f5aeecc4358ff52cb2c8b1b666f77/jetified-push_sdk_v3.0.0.4_484/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d4f5aeecc4358ff52cb2c8b1b666f77/jetified-push_sdk_v3.0.0.4_484/jars/libs/pushOpenClient_v3.0.0.4_484_81c1f83_release.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d4f5aeecc4358ff52cb2c8b1b666f77/jetified-push_sdk_v3.0.0.4_484/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4d4f5aeecc4358ff52cb2c8b1b666f77/jetified-push_sdk_v3.0.0.4_484/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

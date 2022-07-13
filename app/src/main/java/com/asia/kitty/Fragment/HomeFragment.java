@@ -32,6 +32,9 @@ import com.asia.kitty.CountdownActivity;
 import com.asia.kitty.MusicPlayActivity;
 import com.asia.kitty.R;
 import com.asia.kitty.components.HomeNavigationBar;
+import com.asia.kitty.components.ListSpaceDecoration;
+import com.asia.kitty.components.MyItemDivider;
+import com.asia.kitty.components.RecyclerSpace;
 import com.asia.kitty.model.Fruit;
 import com.asia.kitty.service.TimeHelper;
 import com.bumptech.glide.Glide;
@@ -112,7 +115,7 @@ public class HomeFragment extends Fragment {
                 int myPivotX = 0;
                 if(position <= 1 && position > 0){
                     myPivotX = 0;
-                }else if(position < 0 && position >= -1){
+                } else if(position < 0 && position >= -1){
                     myPivotX = myWidth;
                 }
                 page.setPivotX(myPivotX);
@@ -147,7 +150,6 @@ public class HomeFragment extends Fragment {
             tvList.add(view);
 
             list_points.addView(view);
-
         }
 
         // 第一个选中
@@ -217,6 +219,10 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        RecyclerSpace divider = new RecyclerSpace(2,"#f7f7f7",200);
+        recyclerView.addItemDecoration(divider);
+
         return view;
     }
 
